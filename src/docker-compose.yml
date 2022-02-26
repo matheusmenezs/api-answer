@@ -1,0 +1,15 @@
+version: '3.5'
+
+services: 
+  postgres:
+    container_name: answer_postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRESS_DB: answer
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+

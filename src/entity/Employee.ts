@@ -1,6 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany} from "typeorm";
+import { Question } from "./Question";
+import { Length, IsEmail, IsEnum, IsNotEmpty } from "class-validator";
 
-export type UserRole =  "admin" | "employee"
+
+export enum UserRole {
+  employee = 'employee',
+  admin = 'admin'
+}
 
 @Entity()
 export class Employee {
@@ -18,16 +24,18 @@ export class Employee {
     @Column()
     name: string;
 
-    @Column()
+    @Column({unique:true})
+    @IsEmail()
     email: string;
 
     @Column()
+    @Length(6, 30)
     password: string;
 
-    @Column({
-        type: "enum",
-        enum: ["admin", "employee"],
-    })
-    role: UserRole;
+    @IsNotEmpty()
+    @IsEnum(UserRole)
+    readonly role: UserRole;
 
+    @OneToMany(() => Question, question => question.employeeId)
+    questions: Question[];
 }

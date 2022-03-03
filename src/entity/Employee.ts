@@ -1,11 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany} from "typeorm";
 import { Question } from "./Question";
-import { Length, IsEmail, IsEnum, IsNotEmpty } from "class-validator";
+import { Length, IsEmail, IsEnum } from "class-validator";
 
 
 export enum UserRole {
-  employee = 'employee',
-  admin = 'admin'
+  employee = "employee",
+  admin = "admin"
 }
 
 @Entity()
@@ -23,7 +23,7 @@ export class Employee {
 
     @Column()
     name: string;
-
+    
     @Column({unique:true})
     @IsEmail()
     email: string;
@@ -32,7 +32,7 @@ export class Employee {
     @Length(6, 30)
     password: string;
 
-    @IsNotEmpty()
+    @Column()
     @IsEnum(UserRole)
     readonly role: UserRole;
 

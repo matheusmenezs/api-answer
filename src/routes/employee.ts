@@ -10,15 +10,14 @@ routerEmployee.post('/', async (request:Request, response:Response) => {
     const {name, email, password, role} = request.body;
     const newEmployee = new Employee(name, email, password, role);
 
-    const errors = await validate(newEmployee)
+    const errors = await validate(newEmployee);
     
     if(errors.length == 0){
         const saveEmployee = await employeeCtrl.save(newEmployee);
         response.status(200).json(saveEmployee);
     }else{
-        response.status(400).json(errors)
+        response.status(400).json(errors);
     }
-  
 });
 
 routerEmployee.get('/', async (request:Request, response:Response) => {
@@ -35,5 +34,11 @@ routerEmployee.get('/search/:id', async (request:Request, response:Response) => 
 routerEmployee.get('/questions/:idEmployee', async (request:Request, response:Response) => {
     const idEmployee = parseInt(request.params.idEmployee);
     const questions = await employeeCtrl.getQuestionsEmployee(idEmployee);
-    response.json(questions);
+   
+    if(questions){
+        response.status(200).json(questions);
+    }else{
+        response.status(400).json({message: "Not found questions"});
+    }
+    
 })

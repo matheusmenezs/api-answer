@@ -1,7 +1,7 @@
 import { getManager } from "typeorm";
 import { Employee } from "../entity/Employee";
 
-export class employeeController {
+export class employeeController {  
    async save (employee: Employee) {
        const employeeSave = await getManager().save(employee);
        return employeeSave;
@@ -17,6 +17,10 @@ export class employeeController {
    async getQuestionsEmployee(id: number){
        const employee = await getManager().findOne(Employee, id, {
            relations: ['questions']});
-       return employee.questions;
+           
+        if(employee)
+            return employee.questions;
+        else
+            return null;
    }
 }

@@ -1,41 +1,35 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Question } from "./Question";
-import { Length, IsEmail, IsEnum } from "class-validator";
-
 
 export enum UserRole {
   employee = "employee",
   admin = "admin"
-}
-
+};
 @Entity()
 export class Employee {
-    
-    constructor(name:string, email:string, password:string, role:UserRole){
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  constructor(name: string, email: string, password: string, role: UserRole) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
 
-    @Column()
-    name: string;
-    
-    @Column({unique:true})
-    @IsEmail()
-    email: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    @Length(6, 30)
-    password: string;
+  @Column()
+  name: string;
 
-    @Column()
-    @IsEnum(UserRole)
-    readonly role: UserRole;
+  @Column({ unique: true })
+  email: string;
 
-    @OneToMany(() => Question, question => question.employeeId)
-    questions: Question[];
+  @Column()
+  password: string;
+
+  @Column({type: "enum", enum: UserRole})
+  readonly role: UserRole;
+
+  @OneToMany(() => Question, question => question.employee)
+  questions: Question[];
 }

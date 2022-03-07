@@ -1,21 +1,18 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Employee } from "./Employee";
-
-
 @Entity()
 export class Question {
-    constructor(id: number, description: string, employee: Employee){
-        this.id = id;
+    constructor(description: string, employee: Employee) {
         this.description = description;
-        this.employeeId = employee;
+        this.employee = employee;
     }
 
     @PrimaryGeneratedColumn()
     id: number;
-    
+
     @Column()
     description: string;
 
-    @ManyToOne(() => Employee)
-    employeeId: Employee;
+    @ManyToOne(() => Employee, employee => employee.questions)
+    employee: Employee;
 }

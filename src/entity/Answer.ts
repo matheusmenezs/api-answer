@@ -1,14 +1,12 @@
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { employeeController } from "../controller/employee";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
 import { Employee } from "./Employee";
 import { Question } from "./Question";
-
 @Entity()
-export class Answer{
-    constructor(description: string, employee: Employee, question: Question){
+export class Answer {
+    constructor(description: string, employee: Employee, question: Question) {
         this.description = description;
-        this.employeeId = employee;
-        this.questionId = question;
+        this.employee = employee;
+        this.question = question;
     }
 
     @PrimaryGeneratedColumn()
@@ -17,9 +15,9 @@ export class Answer{
     @Column()
     description: string;
 
-    @ManyToOne(() => Employee, employeeId => employeeId)
-    employeeId: Employee;
+    @ManyToOne(() => Employee)
+    employee: Employee;
 
-    @OneToOne(() => Question, questionId => questionId)
-    questionId: Question;
+    @ManyToOne(() => Question)
+    question: Question;
 }

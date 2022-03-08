@@ -7,8 +7,8 @@ export class Question {
         this.employee = employee;
     }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     description: string;

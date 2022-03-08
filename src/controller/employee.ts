@@ -14,7 +14,7 @@ export class employeeController {
         const employee = await getManager().findOne(Employee, id);
         return employee;
     }
-    async getQuestionsEmployee(id: number) {
+    async getQuestionsEmployee(id: string) {
         const employee = await getManager().findOne(Employee, id, {relations: ['questions']});
         return employee.questions;
     }

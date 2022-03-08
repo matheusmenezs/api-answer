@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
 import { Question } from "./Question";
+
+var bcrypt = require('bcryptjs');
 
 export enum UserRole {
   employee = "employee",
@@ -32,4 +34,10 @@ export class Employee {
 
   @OneToMany(() => Question, question => question.employee)
   questions: Question[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {  
+    this.password = bcrypt.hashSync(this.password, 8)
+  }
 }

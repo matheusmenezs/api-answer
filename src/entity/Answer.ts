@@ -9,8 +9,8 @@ export class Answer {
         this.question = question;
     }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     description: string;

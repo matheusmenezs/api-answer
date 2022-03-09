@@ -13,7 +13,7 @@ export const employeeValidator = [
         }),
     check("email").isEmail().withMessage("Enter a valid email address")
         .custom(async email => {
-            const emailVerify = await getManager().findOne(Employee, { email: `${email}` });
+            const emailVerify = await getManager().findOne(Employee, { where: {email} });
             if (emailVerify) {
                 return Promise.reject("This email is already in use");
             }

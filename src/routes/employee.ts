@@ -39,7 +39,7 @@ routerEmployee.get('/search/:id', async (request: Request, response: Response) =
 });
 
 routerEmployee.get('/questions/:idEmployee', async (request: Request, response: Response) => {
-    const idEmployee = parseInt(request.params.idEmployee);
+    const {idEmployee} = request.params;
     try {
         const questions = await employeeCtrl.getQuestionsEmployee(idEmployee);
         if (questions.length > 0) {

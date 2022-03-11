@@ -19,3 +19,14 @@ routerAnswer.post('/', answerValidator, async (request: Request, response: Respo
         response.status(400).json(errors)
     }
 })
+
+routerAnswer.get('/list',async (request:Request, response:Response) => {
+    const questions = await ctrlAnswer.listAnswers()
+    console.log(questions)
+    if(questions){
+        return response.status(200).json(questions)
+    }else{
+        return response.status(200).json({message: 'Not found questions'})
+    }
+    
+})

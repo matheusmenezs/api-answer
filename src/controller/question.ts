@@ -7,10 +7,10 @@ export class questionController {
         return questionSave;
     }
     async listQuestions() {
-        const questions = await getManager().find(Question);
+        const questions = await getManager().connection.query('select * from question');
         return questions;
     }
-    async getQuestion(id: number) {
+    async getQuestion(id: string) {
         const question = await getManager().findOne(Question, id);
         return question;
     }

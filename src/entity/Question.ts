@@ -2,9 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Employee } from "./Employee";
 @Entity()
 export class Question {
-    constructor(description: string, employee: Employee) {
+    constructor(description: string) {
         this.description = description;
-        this.employee = employee;
     }
 
     @PrimaryGeneratedColumn('uuid')
@@ -14,5 +13,5 @@ export class Question {
     description: string;
 
     @ManyToOne(() => Employee, employee => employee.questions)
-    employee: Employee;
+    employee: string;
 }

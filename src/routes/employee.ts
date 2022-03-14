@@ -43,11 +43,11 @@ routerEmployee.get('/questions/:idEmployee', async (request: Request, response: 
     try {
         const questions = await employeeCtrl.getQuestionsEmployee(idEmployee);
         if (questions.length > 0) {
-            response.status(200).json(questions);
+            return response.status(200).json(questions);
         } else
-            response.status(400).json({ error: "Not found questions" });
+            return response.status(400).json({ error: "Not found questions" });
     }
     catch (error) {
-        response.status(400).json({ error: "Not found employee" });
+        return response.status(400).json({ error: "Not found employee" });
     }
 })

@@ -3,9 +3,8 @@ import { Employee } from "./Employee";
 import { Question } from "./Question";
 @Entity()
 export class Answer {
-    constructor(description: string, employee: Employee, question: Question) {
+    constructor(description: string, question: Question) {
         this.description = description;
-        this.employee = employee;
         this.question = question;
     }
 
@@ -16,7 +15,7 @@ export class Answer {
     description: string;
 
     @ManyToOne(() => Employee)
-    employee: Employee;
+    employee: string;
 
     @ManyToOne(() => Question)
     question: Question;

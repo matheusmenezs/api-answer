@@ -12,7 +12,8 @@ routerQuestion.post('/', questionValidator, async (request: Request, response: R
     const errors = validationResult(request)
 
     if (errors.isEmpty()) {
-        const question = new Question(description, employeeId);
+        const question = new Question(description);
+        question.employee = request.employeeId
         const saveQuestion = await questionCtrl.save(question);
         return response.status(200).json({ question: saveQuestion, message: 'Question created successfully' });
     } else {

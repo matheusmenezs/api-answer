@@ -13,7 +13,12 @@ routerEmployee.post('/', employeeValidator, async (request: Request, response: R
     if (errors.isEmpty()) {
         const newEmployee = new Employee(name, email, password, role);
         const saveEmployee = await employeeCtrl.save(newEmployee);
-        response.status(200).json(saveEmployee);
+        response.status(200).json({
+            name: saveEmployee.name,
+            email: saveEmployee.email,
+            role: saveEmployee.role,
+            id: saveEmployee.id
+        });
     } else {
         response.status(400).json(errors);
     }
@@ -22,26 +27,45 @@ routerEmployee.post('/', employeeValidator, async (request: Request, response: R
 routerEmployee.get('/', async (request: Request, response: Response) => {
     const employees = await employeeCtrl.listEmployees();
     if (employees.length > 0) {
-        response.status(200).json(employees);
+        response.status(200).json(
+            employees.map(employee => {
+                const emp = {
+                    "name": employee.name,
+                    "email": employee.email,
+                    "role": employee.role,
+                    "id": employee.id
+                }
+                return emp
+            }));
     } else {
         response.status(200).json({ message: "Not found employees" });
     }
 });
 
-routerEmployee.get('/search/:id', async (request: Request, response: Response) => {
-    const { id } = request.params;
-    const employee = await employeeCtrl.getEmployee(id);
-    if (employee) {
-        response.status(200).json(employee);
-    } else {
-        response.status(200).json({ message: "Not found employee" });
+routerEmployee.get('/search', async (request: Request, response: Response) => {
+    const { employeeId } = request.body;
+    try {
+        const employee = await employeeCtrl.getEmployee(employeeId);
+        if (employee) {
+            response.status(200).json({
+                name: employee.name,
+                email: employee.email,
+                role: employee.role,
+                id: employee.id
+            })
+        } else {
+            response.status(200).json({ message: "Not found employee" });
+        }
+    } catch {
+        return response.status(400).json({ message: "This ID does not exist" });
     }
+
 });
 
-routerEmployee.get('/questions/:idEmployee', async (request: Request, response: Response) => {
-    const {idEmployee} = request.params;
+routerEmployee.get('/questions', async (request: Request, response: Response) => {
+    const { employeeId } = request.body;
     try {
-        const questions = await employeeCtrl.getQuestionsEmployee(idEmployee);
+        const questions = await employeeCtrl.getQuestionsEmployee(employeeId);
         if (questions.length > 0) {
             return response.status(200).json(questions);
         } else

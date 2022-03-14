@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use('/auth', routerAuthEmployee)
 app.use('/employee', routerEmployee);
-app.use('/question', routerQuestion);
+app.use('/question', authMiddleware, routerQuestion);
 app.use('/answer', authMiddleware, routerAnswer);
 
 connectBD(); 

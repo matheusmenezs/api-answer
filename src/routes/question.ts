@@ -8,7 +8,7 @@ export const routerQuestion = Router();
 const questionCtrl = new questionController;
 
 routerQuestion.post('/', questionValidator, async (request: Request, response: Response) => {
-    const { description, employeeId } = request.body;
+    const { description } = request.body;
     const errors = validationResult(request)
 
     if (errors.isEmpty()) {
@@ -21,13 +21,11 @@ routerQuestion.post('/', questionValidator, async (request: Request, response: R
     }
 })
 
-routerQuestion.get('/list',async (request:Request, response:Response) => {
+routerQuestion.get('/list', async (request: Request, response: Response) => {
     const questions = await questionCtrl.listQuestions()
-    console.log(questions)
-    if(questions){
+    if (questions.length > 0) {
         return response.status(200).json(questions)
-    }else{
-        return response.status(200).json({message: 'Not found questions'})
+    } else {
+        return response.status(200).json({ message: 'Not found questions' })
     }
-    
 })

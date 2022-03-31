@@ -30,7 +30,8 @@ Create the database connection
 
 
 Import this file into Insomnia:
-7. [Insomnia_Answer.zip](https://github.com/matheusmenezs/api-answer/files/8388929/Insomnia_Answer.zip)
+
+7. [Insomnia.zip](https://github.com/matheusmenezs/api-answer/files/8388936/Insomnia.zip)
 
 
 Start application: 

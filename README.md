@@ -26,6 +26,7 @@ Start the container:
 Create the database connection 
 
 * Note: In this case, Dbeaver was used. Connection settings are based on `docker-compose.yml` file
+
 6. ![Captura de tela de 2022-03-30 14-20-58](https://user-images.githubusercontent.com/64173311/161044815-b7f99ce0-4d94-4d0b-8d44-8e43eeaa3d34.png)
 
 

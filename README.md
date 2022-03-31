@@ -28,7 +28,7 @@ Verify the container is started:
 6. Run `docker ps` command
 
 * Note: If the container is not started: 
-  Run `docker start answer_postgres_container`
+  Run `docker start answer_postgres_container` command
 
 
 Create the database connection 
